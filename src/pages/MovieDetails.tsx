@@ -2,10 +2,15 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMovieById } from "../services/api";
 
+interface Movie {
+    originalTitle: string;
+    primaryImage?: { url: string };
+    plot?: { plotText?: { plainText: string } };
+}
 
 export default function MovieDetails() {
     const { id } = useParams();
-    const [movie, setMovie] = useState(null);
+    const [movie, setMovie] = useState<Movie | null>(null);
 
     useEffect(() => {
         if (id) {

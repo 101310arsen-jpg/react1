@@ -5,18 +5,21 @@ import { getMoviesByIds } from "../services/api";
 
 export default function Favorites() {
     const { favorites } = useFavorites();
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState<any[]>([]);
 
     useEffect(() => {
-        getMoviesByIds(favorites).then((data) => {
-            setMovies(data);
-        });
+        if (favorites.length > 0) {
+            getMoviesByIds(favorites).then((data) => {
+                setMovies(data);
+            });
+        } else {
+            setMovies([]);
+        }
     }, [favorites]);
 
     return (
         <div>
             <Movieslist movies={movies} />
-            
         </div>
     );
 }
